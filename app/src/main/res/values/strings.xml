@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">unabApp</string>
+    <string name="app_name">MGDAS App</string>
+    <string name="mail_hint">Por favor introduce tu correo</string>
+    <string name="password_hint">Por favor introduce tu contraseña</string>
+    <string name="name">Sebastián Joya</string>
+    <string name="validEmail">jjoya449@unab.edu.co</string>
+    <string name="validPassword">unab2022</string>
+
 </resources>
