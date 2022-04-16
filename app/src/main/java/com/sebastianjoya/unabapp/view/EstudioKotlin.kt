@@ -1,7 +1,8 @@
-package com.sebastianjoya.unabapp
+package com.sebastianjoya.unabapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.sebastianjoya.unabapp.R
 
 class EstudioKotlin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

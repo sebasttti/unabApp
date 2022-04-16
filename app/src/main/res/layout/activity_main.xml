@@ -6,10 +6,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.sebastianjoya.unabapp.MainActivityViewModel" />
+            type="com.sebastianjoya.unabapp.viewmodel.MainActivityViewModel" />
         <variable
             name="dataUser"
-            type="com.sebastianjoya.unabapp.User" />
+            type="com.sebastianjoya.unabapp.model.entity.User" />
         <variable
             name="dataTitle"
             type="String" />
@@ -19,7 +19,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".view.MainActivity">
 
         <ImageView
             android:id="@+id/iv_image_login"

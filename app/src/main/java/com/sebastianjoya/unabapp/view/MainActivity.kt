@@ -1,20 +1,23 @@
-package com.sebastianjoya.unabapp
+package com.sebastianjoya.unabapp.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.sebastianjoya.unabapp.R
 import com.sebastianjoya.unabapp.databinding.ActivityMainBinding
+import com.sebastianjoya.unabapp.viewmodel.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel:MainActivityViewModel
+    private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
 
         binding.viewModel = viewModel
@@ -27,8 +30,18 @@ class MainActivity : AppCompatActivity() {
 
         binding.buLoginLogin.setOnClickListener{
 
+
             if (viewModel.login()){
+
                 Toast.makeText(this,"Login correcto",Toast.LENGTH_SHORT).show()
+
+                val intentSignUp = Intent(applicationContext, ProdutsListActivity::class.java)
+                /*intentSignUp.apply{
+                    putExtra("message","hola")
+                    putExtra("data",viewModel.user.email)
+                }*/
+                startActivity(intentSignUp)
+
             }else{
                 Toast.makeText(this,"Login inválido",Toast.LENGTH_SHORT).show()
             }
@@ -45,6 +58,15 @@ class MainActivity : AppCompatActivity() {
 //            }else{
 //                Toast.makeText(this,"Login inválido",Toast.LENGTH_SHORT).show()
 //            }
+        }
+
+        binding.buLoginSignup.setOnClickListener{
+
+            /**
+             * Evento para llamar a otra pantalla
+             */
+
+
         }
     }
 }

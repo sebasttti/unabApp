@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="product"
+            type="com.sebastianjoya.unabapp.model.Product" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".view.ProductDetailActivity">
+
+            <ImageView
+                android:id="@+id/iv_productDetail_img"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:image="@{product.urlImage}"
+                />
+
+            <TextView
+                android:id="@+id/tv_productDetail_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_productDetail_img"
+                android:textAlignment="center"
+                android:text="@{product.name}"
+                android:textSize="32sp"
+                android:layout_margin="16dp" />
+
+            <TextView
+                android:id="@+id/tv_productDetail_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_productDetail_name"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:text="@{product.value}"
+                android:layout_margin="16dp" />
+
+            <Button
+                android:id="@+id/bu_productDetail_edit"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="EDITAR"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_productDetail_value"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="30dp" />
+
+            <Button
+                android:id="@+id/bu_productDetail_return"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="REGRESAR"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginRight="30dp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_productDetail_value"
+                android:layout_marginTop="40dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+</layout>

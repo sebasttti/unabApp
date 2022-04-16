@@ -6,21 +6,33 @@
     <data>
         <variable
             name="viewModel"
-            type="com.sebastianjoya.unabapp.ProductListActivityViewModel" />
+            type="com.sebastianjoya.unabapp.viewmodel.ProductListActivityViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ProdutsListActivity">
+        tools:context=".view.ProdutsListActivity"
+        android:layout_margin="8dp">
+
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:id="@+id/bu_list_add"
+            android:layout_width="180dp"
+            android:layout_height="60dp"
+            android:id="@+id/bu_list_return"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="Agregar producto" />
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="REGRESAR" />
+
+        <Button
+            android:layout_width="180dp"
+            android:layout_height="60dp"
+            android:id="@+id/bu_list_add"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="AGREGAR PRODUCTO" />
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_list_show"
