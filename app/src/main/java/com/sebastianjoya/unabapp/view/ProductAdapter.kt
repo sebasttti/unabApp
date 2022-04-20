@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.sebastianjoya.unabapp.model.Product
+import com.sebastianjoya.unabapp.model.entity.Product
 import com.sebastianjoya.unabapp.R
 import com.sebastianjoya.unabapp.databinding.ProductItemBinding
 
 class ProductAdapter(private var products:ArrayList<Product>):RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     var onItemClickListener:((Product)->Unit)?=null
+    var onItemLongClickListener:((Product)->Unit)?=null
 
     fun refresh(myProducts: ArrayList<Product>){
         products=myProducts
@@ -20,7 +20,11 @@ class ProductAdapter(private var products:ArrayList<Product>):RecyclerView.Adapt
 
 
     class ProductViewHolder(private val binding: ProductItemBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(myProduct: Product, onItemClickListener: ((Product) -> Unit)?){
+        fun bind(
+            myProduct: Product,
+            onItemClickListener: ((Product) -> Unit)?,
+            onItemLongClickListener: ((Product) -> Unit)?
+        ){
             binding.product = myProduct
 
             /**
@@ -35,6 +39,13 @@ class ProductAdapter(private var products:ArrayList<Product>):RecyclerView.Adapt
                 onItemClickListener?.let{
                     it(myProduct)
                 }
+            }
+
+            binding.root.setOnLongClickListener{
+                onItemLongClickListener?.let{
+                    it (myProduct)
+                }
+                true
             }
 
         }
@@ -53,7 +64,7 @@ class ProductAdapter(private var products:ArrayList<Product>):RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(products[position],onItemClickListener)
+        holder.bind(products[position],onItemClickListener,onItemLongClickListener)
     }
 
     override fun getItemCount(): Int = products.size

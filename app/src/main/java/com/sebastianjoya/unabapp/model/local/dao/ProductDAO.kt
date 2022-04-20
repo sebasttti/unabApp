@@ -1,23 +1,23 @@
 package com.sebastianjoya.unabapp.model.local.dao
 
 import androidx.room.*
-import com.sebastianjoya.unabapp.model.Product
+import com.sebastianjoya.unabapp.model.entity.Product
 
 @Dao
 interface ProductDAO {
 
     @Query("select * from Product")
-    fun getAll():ArrayList<Product>
+    fun getAll():List<Product>
 
     @Query("select * from Product where `key`=:keyValue")
-    fun getByKey(keyValue:Int):Product
+    fun getByKey(keyValue:Int): Product
 
     @Insert
-    fun add(myProduct:Product)
+    fun add(myProduct: Product)
 
     @Update
-    fun update(myProduct:Product)
+    fun update(myProduct: Product)
 
     @Delete
-    fun delete(myProduct:Product)
+    fun delete(myProduct: Product)
 }

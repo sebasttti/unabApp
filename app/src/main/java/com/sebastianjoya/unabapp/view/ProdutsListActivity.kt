@@ -1,5 +1,6 @@
 package com.sebastianjoya.unabapp.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -13,6 +14,7 @@ class ProdutsListActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityProdutsListBinding
     lateinit var viewModel: ProductListActivityViewModel
+    lateinit var adapter: ProductAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -31,17 +33,32 @@ class ProdutsListActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[ProductListActivityViewModel::class.java]
 
-        binding.viewModel = viewModel
+        adapter = ProductAdapter(viewModel.products)
 
-        viewModel.loadProducts()
-
-        viewModel.refreshData()
+        binding.adapter = adapter
 
         /**
          * Función para saber qué producto elegí
          */
-        viewModel.adapter.onItemClickListener={
+        adapter.onItemClickListener={
             Toast.makeText(applicationContext,it.name,Toast.LENGTH_SHORT).show()
+
+            val intentDetail = Intent(applicationContext,ProductDetailActivity::class.java)
+            intentDetail.putExtra("product",it)
+
+            startActivity(intentDetail)
+
+        }
+
+        adapter.onItemLongClickListener={
+
+            viewModel.deleteProduct(it)
+
+            adapter.refresh(viewModel.products)
+
+            Toast
+                .makeText(applicationContext,"Producto ${it.name} eliminado",Toast.LENGTH_SHORT)
+                .show()
         }
 
         binding.buListReturn.setOnClickListener{
@@ -50,7 +67,22 @@ class ProdutsListActivity : AppCompatActivity() {
              */
             finish()
         }
+
+        binding.buListAdd.setOnClickListener{
+            val intentDetail = Intent(applicationContext,ProductFormActivity::class.java)
+            intentDetail.putExtra("title","AGREGAR PRODUCTO")
+
+            startActivity(intentDetail)
+
+        }
     }
+
+    override fun onResume(){
+        super.onResume()
+        viewModel.loadProducts()
+        adapter.refresh(viewModel.products)
+    }
+
 
 
 }

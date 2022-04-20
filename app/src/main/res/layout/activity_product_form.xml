@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="product"
+            type="com.sebastianjoya.unabapp.model.entity.Product" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".view.ProductFormActivity"
+            android:layout_margin="8dp">
+
+            <ImageView
+                android:id="@+id/iv_productForm_img"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                app:srcCompat="@drawable/ic_launcher_background"
+                android:scaleType="centerCrop"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <EditText
+                android:layout_marginTop="30dp"
+                android:id="@+id/ed_productForm_name"
+                app:layout_constraintTop_toBottomOf="@id/iv_productForm_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre"
+                android:text="@={product.name}"
+                />
+
+            <EditText
+                android:layout_marginTop="30dp"
+                android:id="@+id/ed_productForm_value"
+                app:layout_constraintTop_toBottomOf="@id/ed_productForm_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Valor"
+                android:text="@={product.value}"
+                />
+
+            <EditText
+                android:layout_marginTop="30dp"
+                android:id="@+id/ed_productForm_description"
+                app:layout_constraintTop_toBottomOf="@id/ed_productForm_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Descripción"
+                android:text="@={product.description}"
+                />
+
+            <EditText
+                android:layout_marginTop="30dp"
+                android:id="@+id/ed_productForm_urlImage"
+                app:layout_constraintTop_toBottomOf="@id/ed_productForm_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Imagen"
+                android:text="@={product.urlImage}"
+                />
+
+            <Button
+                android:layout_marginTop="30dp"
+                android:id="@+id/bu_productForm_confirm"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ed_productForm_urlImage"
+                android:text="AGREGAR" />
+
+            <Button
+                android:layout_marginTop="30dp"
+                android:id="@+id/bu_productForm_return"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ed_productForm_urlImage"
+                android:text="REGRESAR" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+
+
+</layout>

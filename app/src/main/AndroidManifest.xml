@@ -13,11 +13,20 @@
         android:theme="@style/Theme.UnabApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.ProductFormActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ProductAdd"
+            android:exported="false" />
+        <activity
             android:name=".view.ProductDetailActivity"
             android:exported="false" />
         <activity
             android:name=".view.ProdutsListActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".view.EstudioKotlin"
             android:exported="false" />

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.sebastianjoya.unabapp.R
 import com.sebastianjoya.unabapp.databinding.ActivityProductDetailBinding
 import com.sebastianjoya.unabapp.databinding.ActivityProdutsListBinding
+import com.sebastianjoya.unabapp.model.entity.Product
 import com.sebastianjoya.unabapp.viewmodel.ProductDetailActivityViewModel
 import com.sebastianjoya.unabapp.viewmodel.ProductListActivityViewModel
 
@@ -18,13 +19,19 @@ class ProductDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val myProduct:Product = intent.getSerializableExtra("product") as Product
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_detail)
 
         viewModel = ViewModelProvider(this)[ProductDetailActivityViewModel::class.java]
 
+        viewModel.product = myProduct
+
         binding.product = viewModel.product
 
-        //Pendiente por terminar 2022-04-09
+        binding.buProductDetailReturn.setOnClickListener{
+            finish()
+        }
 
     }
 }
