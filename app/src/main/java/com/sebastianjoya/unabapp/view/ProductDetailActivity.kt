@@ -1,5 +1,6 @@
 package com.sebastianjoya.unabapp.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -33,5 +34,17 @@ class ProductDetailActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.buProductDetailEdit.setOnClickListener{
+            val intentSignUp = Intent(applicationContext, ProductFormActivity::class.java)
+            intentSignUp.apply{
+                putExtra("product",myProduct)
+            }
+            startActivity(intentSignUp)
+        }
+
+    }
+
+    override fun onResume(){
+        super.onResume()
     }
 }

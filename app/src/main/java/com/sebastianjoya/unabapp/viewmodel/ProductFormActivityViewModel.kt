@@ -13,4 +13,12 @@ class ProductFormActivityViewModel(application: Application): AndroidViewModel(a
         productRepository.addLocal(myProduct)
     }
 
+    fun update(myProduct: Product){
+        productRepository.updateLocal(myProduct)
+    }
+
+    fun getImage(urlString:String){
+
+    }
+
 }

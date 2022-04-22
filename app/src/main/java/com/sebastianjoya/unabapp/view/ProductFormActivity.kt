@@ -15,7 +15,6 @@ class ProductFormActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityProductFormBinding
     lateinit var viewModel: ProductFormActivityViewModel
-    private lateinit var myProduct:Product
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,20 +26,36 @@ class ProductFormActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[ProductFormActivityViewModel::class.java]
 
-        myProduct = Product(name = "",description = "",value = "",urlImage = "")
+        var myProduct:Product? = intent.getSerializableExtra("product") as Product?
+
+        myProduct?.let {
+            binding.buProductFormConfirm.text = "CONFIRMAR"
+
+            binding.buProductFormConfirm.setOnClickListener{
+                viewModel.update(binding.product as Product)
+                finish()
+            }
+
+
+        }?:run{
+            myProduct = Product(name = "",description = "",value = "",urlImage = "")
+
+            binding.buProductFormConfirm.setOnClickListener{
+                viewModel.add(binding.product as Product)
+                finish()
+            }
+        }
 
         binding.product = myProduct
 
-        binding.buProductFormConfirm.setOnClickListener{
-            viewModel.add(binding.product as Product)
-            finish()
-        }
+
 
         binding.buProductFormReturn.setOnClickListener{
             finish()
         }
 
     }
+
 
 
 }
