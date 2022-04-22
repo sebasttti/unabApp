@@ -44,7 +44,7 @@ class ProdutsListActivity : AppCompatActivity() {
             Toast.makeText(applicationContext,it.name,Toast.LENGTH_SHORT).show()
 
             val intentDetail = Intent(applicationContext,ProductDetailActivity::class.java)
-            intentDetail.putExtra("product",it)
+            intentDetail.putExtra("productKey",it.key)
 
             startActivity(intentDetail)
 

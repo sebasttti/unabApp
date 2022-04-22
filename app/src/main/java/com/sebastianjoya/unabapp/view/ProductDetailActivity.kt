@@ -15,20 +15,21 @@ import com.sebastianjoya.unabapp.viewmodel.ProductListActivityViewModel
 class ProductDetailActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityProductDetailBinding
-    lateinit var viewModel: ProductDetailActivityViewModel
+    lateinit var viewModel:ProductDetailActivityViewModel
+    private var productKey = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val myProduct:Product = intent.getSerializableExtra("product") as Product
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_detail)
 
         viewModel = ViewModelProvider(this)[ProductDetailActivityViewModel::class.java]
 
-        viewModel.product = myProduct
+        productKey = intent.getIntExtra("productKey",0)
 
-        binding.product = viewModel.product
+        viewModel.fetchProduct(productKey)
+
+        reloadProduct()
 
         binding.buProductDetailReturn.setOnClickListener{
             finish()
@@ -37,7 +38,7 @@ class ProductDetailActivity : AppCompatActivity() {
         binding.buProductDetailEdit.setOnClickListener{
             val intentSignUp = Intent(applicationContext, ProductFormActivity::class.java)
             intentSignUp.apply{
-                putExtra("product",myProduct)
+                putExtra("product",viewModel.product)
             }
             startActivity(intentSignUp)
         }
@@ -45,6 +46,13 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     override fun onResume(){
+        reloadProduct()
         super.onResume()
+
+    }
+
+    private fun reloadProduct(){
+        viewModel.fetchProduct(productKey)
+        binding.product = viewModel.product
     }
 }
