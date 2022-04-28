@@ -1,6 +1,7 @@
 package com.sebastianjoya.unabapp.view
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -17,6 +18,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val preferences = getSharedPreferences("unabApp.pref", MODE_PRIVATE)
+
+        //preferences.edit().remove("login").apply()
+
+        if (preferences.getBoolean("login",false)){
+
+            val intentSignUp = Intent(applicationContext, ProdutsListActivity::class.java)
+            /*intentSignUp.apply{
+                putExtra("message","hola")
+                putExtra("data",viewModel.user.email)
+            }*/
+            startActivity(intentSignUp)
+        }
+
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
 
@@ -33,14 +50,12 @@ class MainActivity : AppCompatActivity() {
 
             if (viewModel.login()){
 
-                Toast.makeText(this,"Login correcto",Toast.LENGTH_SHORT).show()
+                val preferences: SharedPreferences = getSharedPreferences("unabApp.pref",MODE_PRIVATE)
+                val editor:SharedPreferences.Editor = preferences.edit()
+                editor.putBoolean("login",true)
+                editor.apply()
 
-                val intentSignUp = Intent(applicationContext, ProdutsListActivity::class.java)
-                /*intentSignUp.apply{
-                    putExtra("message","hola")
-                    putExtra("data",viewModel.user.email)
-                }*/
-                startActivity(intentSignUp)
+                Toast.makeText(this,"Login correcto",Toast.LENGTH_SHORT).show()
 
             }else{
                 Toast.makeText(this,"Login inválido",Toast.LENGTH_SHORT).show()
