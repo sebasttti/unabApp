@@ -1,5 +1,7 @@
 package com.sebastianjoya.unabapp.view
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -54,6 +56,14 @@ class ProductFormActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    private fun sendDataBackToPreviousActivity(thisProduct: Product) {
+        val intent = Intent().apply {
+            putExtra("product", thisProduct)
+            // Put your data here if you want.
+        }
+        setResult(Activity.RESULT_OK, intent)
     }
 
 

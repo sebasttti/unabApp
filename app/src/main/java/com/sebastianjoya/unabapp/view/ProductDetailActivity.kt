@@ -29,7 +29,17 @@ class ProductDetailActivity : AppCompatActivity() {
 
         viewModel.fetchProduct(productKey)
 
-        reloadProduct()
+        binding.product = Product(name = "", value = "", description = "")
+
+        viewModel.product.observe(this){
+            it?.let {
+                binding.product=it
+                productKey = it.key!!
+            }
+
+        }
+
+        /** ---------------------- */
 
         binding.buProductDetailReturn.setOnClickListener{
             finish()
@@ -38,7 +48,7 @@ class ProductDetailActivity : AppCompatActivity() {
         binding.buProductDetailEdit.setOnClickListener{
             val intentSignUp = Intent(applicationContext, ProductFormActivity::class.java)
             intentSignUp.apply{
-                putExtra("product",viewModel.product)
+                putExtra("product",binding.product)
             }
             startActivity(intentSignUp)
         }
@@ -46,13 +56,9 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     override fun onResume(){
-        reloadProduct()
+        viewModel.fetchProduct(productKey)
         super.onResume()
 
     }
 
-    private fun reloadProduct(){
-        viewModel.fetchProduct(productKey)
-        binding.product = viewModel.product
-    }
 }

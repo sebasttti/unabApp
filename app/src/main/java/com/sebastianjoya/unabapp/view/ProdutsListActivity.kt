@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.sebastianjoya.unabapp.viewmodel.ProductListActivityViewModel
 import com.sebastianjoya.unabapp.R
 import com.sebastianjoya.unabapp.databinding.ActivityProdutsListBinding
+import com.sebastianjoya.unabapp.model.entity.Product
 
 class ProdutsListActivity : AppCompatActivity() {
 
@@ -33,9 +34,18 @@ class ProdutsListActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[ProductListActivityViewModel::class.java]
 
-        adapter = ProductAdapter(viewModel.products)
+        adapter = ProductAdapter(arrayListOf())
 
         binding.adapter = adapter
+
+       viewModel.products.observe(this){
+
+           if (it.isEmpty()){
+               viewModel.loadFakeData()
+           }
+
+            adapter.refresh(it as ArrayList<Product>)
+        }
 
         /**
          * Función para saber qué producto elegí
@@ -53,8 +63,6 @@ class ProdutsListActivity : AppCompatActivity() {
         adapter.onItemLongClickListener={
 
             viewModel.deleteProduct(it)
-
-            adapter.refresh(viewModel.products)
 
             Toast
                 .makeText(applicationContext,"Producto ${it.name} eliminado",Toast.LENGTH_SHORT)
@@ -79,11 +87,8 @@ class ProdutsListActivity : AppCompatActivity() {
 
     override fun onResume(){
         super.onResume()
-        viewModel.loadProducts()
-        adapter.refresh(viewModel.products)
+        //viewModel.addProduct()
     }
-
-
 
 }
 
