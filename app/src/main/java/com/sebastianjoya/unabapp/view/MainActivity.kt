@@ -80,12 +80,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun goToProductsView(){
+    private fun goToProductsView(){
         val intentSignUp = Intent(applicationContext, ProdutsListActivity::class.java)
         /*intentSignUp.apply{
             putExtra("message","hola")
             putExtra("data",viewModel.user.email)
         }*/
         startActivity(intentSignUp)
+        finish()
     }
 }
