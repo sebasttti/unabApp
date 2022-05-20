@@ -86,8 +86,9 @@ class ProdutsListActivity : AppCompatActivity() {
     }
 
     override fun onResume(){
+        viewModel.loadData()
         super.onResume()
-        //viewModel.addProduct()
+
     }
 
 }

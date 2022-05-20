@@ -2,6 +2,7 @@ package com.sebastianjoya.unabapp.model.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.sebastianjoya.unabapp.model.entity.Product
 import com.sebastianjoya.unabapp.model.local.StoreAppDb
 import com.sebastianjoya.unabapp.model.local.dao.ProductDAO
@@ -9,7 +10,8 @@ import com.sebastianjoya.unabapp.model.local.dao.ProductDAO
 class ProductRepository(myContext: Context) {
     private val db:StoreAppDb = StoreAppDb.getInstance(myContext)
     private val productDAO:ProductDAO = db.productDAO()
-    var products:LiveData<List<Product>> = productDAO.getAll()
+    var products:MutableLiveData<List<Product>> = MutableLiveData()
+    var product:MutableLiveData<Product> = MutableLiveData()
 
     init{
         //loadAllLocal()
@@ -25,14 +27,12 @@ class ProductRepository(myContext: Context) {
     }
 
     fun loadAllLocal(){
-        productDAO.apply{
-            add(Product(name="Ejemplo",value="600000",description = "Este es un ejemplo"))
-        }
-        products = productDAO.getAll()
+        val productsList = productDAO.getAll()
+        products.value=productsList
     }
 
-    fun getByKeyLocal(key:Int):LiveData<Product>{
-        return productDAO.getByKey(key)
+    fun getByKeyLocal(key:Int){
+        product.value =  productDAO.getByKey(key)
     }
 
     fun addLocal(myProduct: Product){
@@ -47,9 +47,8 @@ class ProductRepository(myContext: Context) {
 
     fun deleteLocal(myProduct: Product){
         productDAO.delete(myProduct)
+        loadAllLocal()
 
     }
-
-
 
 }

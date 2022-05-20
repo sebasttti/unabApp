@@ -25,12 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         if (preferences.getBoolean("login",false)){
 
-            val intentSignUp = Intent(applicationContext, ProdutsListActivity::class.java)
-            /*intentSignUp.apply{
-                putExtra("message","hola")
-                putExtra("data",viewModel.user.email)
-            }*/
-            startActivity(intentSignUp)
+            goToProductsView()
         }
 
 
@@ -56,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                 editor.apply()
 
                 Toast.makeText(this,"Login correcto",Toast.LENGTH_SHORT).show()
-
+                goToProductsView()
             }else{
                 Toast.makeText(this,"Login inválido",Toast.LENGTH_SHORT).show()
             }
@@ -83,5 +78,14 @@ class MainActivity : AppCompatActivity() {
 
 
         }
+    }
+
+    fun goToProductsView(){
+        val intentSignUp = Intent(applicationContext, ProdutsListActivity::class.java)
+        /*intentSignUp.apply{
+            putExtra("message","hola")
+            putExtra("data",viewModel.user.email)
+        }*/
+        startActivity(intentSignUp)
     }
 }

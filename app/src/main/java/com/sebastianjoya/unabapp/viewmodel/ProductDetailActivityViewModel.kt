@@ -11,6 +11,7 @@ class ProductDetailActivityViewModel(application: Application):AndroidViewModel(
     lateinit var product:LiveData<Product>
 
     fun fetchProduct(productKey: Int){
-        product = productRepository.getByKeyLocal(productKey)
+        productRepository.getByKeyLocal(productKey)
+        product = productRepository.product
     }
 }

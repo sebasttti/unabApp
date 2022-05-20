@@ -9,10 +9,10 @@ import com.sebastianjoya.unabapp.model.entity.Product
 interface ProductDAO {
 
     @Query("select * from Product")
-    fun getAll(): LiveData<List<Product>>
+    fun getAll(): List<Product>
 
     @Query("select * from Product where `key`=:keyValue")
-    fun getByKey(keyValue:Int): LiveData<Product>
+    fun getByKey(keyValue:Int): Product
 
     @Insert
     fun add(myProduct: Product)
