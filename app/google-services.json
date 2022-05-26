@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "178295364998",
+    "project_id": "unabapp-mgads-2022",
+    "storage_bucket": "unabapp-mgads-2022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178295364998:android:387591db3cefa65310a007",
+        "android_client_info": {
+          "package_name": "com.sebastianjoya.unabapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178295364998-r784gv3rth0q7gr4m9ss576qqaqola9k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sebastianjoya.unabapp",
+            "certificate_hash": "c51b4006ac71fc11fdb940225e51038a4e9c48e5"
+          }
+        },
+        {
+          "client_id": "178295364998-2j5vbdjgn0k0pikoenglpuea606k9a3p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATUpXCAZRqZLb0q01xnuF4Msf0WEiFqlg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "178295364998-2j5vbdjgn0k0pikoenglpuea606k9a3p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

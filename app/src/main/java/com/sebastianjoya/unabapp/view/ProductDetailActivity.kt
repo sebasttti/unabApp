@@ -17,6 +17,7 @@ class ProductDetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityProductDetailBinding
     lateinit var viewModel:ProductDetailActivityViewModel
     private var productKey = 0
+    private var productId:String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,15 +27,19 @@ class ProductDetailActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[ProductDetailActivityViewModel::class.java]
 
         productKey = intent.getIntExtra("productKey",0)
+        productId = intent.getStringExtra("productId")
 
-        viewModel.fetchProduct(productKey)
+        //viewModel.fetchProduct(productKey)
+        productId?.let { viewModel.fetchProductFirestore(it) }
 
         binding.product = Product(name = "", value = "", description = "")
 
         viewModel.product.observe(this){
             it?.let {
                 binding.product=it
-                productKey = it.key!!
+                //productKey = it.key!!
+            }?:run{
+                binding.product= Product(name = "", value = "")
             }
 
         }
@@ -56,7 +61,8 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     override fun onResume(){
-        viewModel.fetchProduct(productKey)
+        //viewModel.fetchProduct(productKey)
+        productId?.let { viewModel.fetchProductFirestore(it) }
         super.onResume()
 
     }

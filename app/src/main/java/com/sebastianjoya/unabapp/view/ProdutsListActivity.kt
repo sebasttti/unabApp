@@ -43,14 +43,11 @@ class ProdutsListActivity : AppCompatActivity() {
 
         binding.adapter = adapter
 
-       viewModel.products.observe(this){
+        //=========================
 
-           if (it.isEmpty()){
-               viewModel.loadFakeData()
-           }
+        loadData()
 
-            adapter.refresh(it as ArrayList<Product>)
-        }
+        //===========================
 
         /**
          * Función para saber qué producto elegí
@@ -60,6 +57,7 @@ class ProdutsListActivity : AppCompatActivity() {
 
             val intentDetail = Intent(applicationContext,ProductDetailActivity::class.java)
             intentDetail.putExtra("productKey",it.key)
+            intentDetail.putExtra("productId",it.id)
 
             startActivity(intentDetail)
 
@@ -67,11 +65,20 @@ class ProdutsListActivity : AppCompatActivity() {
 
         adapter.onItemLongClickListener={
 
-            viewModel.deleteProduct(it)
+            viewModel.deleteProduct(it).observe(this){
+                state->
+                if (state){
+                    Toast
+                        .makeText(applicationContext,"Producto ${it.name} eliminado",Toast.LENGTH_SHORT)
+                        .show()
+                }else{
+                    Toast
+                        .makeText(applicationContext,"Problema al eliminar el producto ${it.name}",Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
 
-            Toast
-                .makeText(applicationContext,"Producto ${it.name} eliminado",Toast.LENGTH_SHORT)
-                .show()
+
         }
 
         binding.buListReturn.setOnClickListener{
@@ -120,6 +127,18 @@ class ProdutsListActivity : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
 
+    }
+
+    private fun loadData(){
+        //viewModel.loadData()
+        viewModel.products.observe(this){
+
+            //if (it.isEmpty()){
+                //viewModel.loadFakeData()
+            //}
+
+            adapter.refresh(it as ArrayList<Product>)
+        }
     }
 
 }

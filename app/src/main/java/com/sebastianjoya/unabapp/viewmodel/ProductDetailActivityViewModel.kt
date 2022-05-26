@@ -11,7 +11,15 @@ class ProductDetailActivityViewModel(application: Application):AndroidViewModel(
     lateinit var product:LiveData<Product>
 
     fun fetchProduct(productKey: Int){
-        productRepository.getByKeyLocal(productKey)
+        val productId: String = productKey as String
+        //productRepository.getByKeyLocal(productKey)
+        productRepository.getByIdFirestore(productId)
+        product = productRepository.product
+    }
+
+    fun fetchProductFirestore(productId: String){
+
+        productRepository.getByIdFirestore(productId)
         product = productRepository.product
     }
 }

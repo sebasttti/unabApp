@@ -11,12 +11,14 @@ class ProductFormActivityViewModel(application: Application): AndroidViewModel(a
     private val productRepository: ProductRepository = ProductRepository(application)
     var products: LiveData<List<Product>> = productRepository.products
 
-    fun add(myProduct: Product){
-        productRepository.addLocal(myProduct)
+    fun add(myProduct: Product):LiveData<String>{
+        //productRepository.addLocal(myProduct)
+        return productRepository.addFirestore(myProduct)
     }
 
-    fun update(myProduct: Product){
-        productRepository.updateLocal(myProduct)
+    fun update(myProduct: Product):LiveData<Boolean>{
+        //productRepository.updateLocal(myProduct)
+        return productRepository.updateFirestore(myProduct)
     }
 
     fun getImage(urlString:String){

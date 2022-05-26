@@ -19,9 +19,6 @@
             android:name=".view.ExampleActivity"
             android:exported="false" />
         <activity
-            android:name=".view.ProductAdd"
-            android:exported="false" />
-        <activity
             android:name=".view.ProductDetailActivity"
             android:exported="false" />
         <activity
@@ -29,6 +26,9 @@
             android:exported="false" />
         <activity
             android:name=".view.EstudioKotlin"
+            android:exported="false" />
+        <activity
+            android:name=".view.SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".view.MainActivity"

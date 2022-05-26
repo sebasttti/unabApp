@@ -1,16 +1,16 @@
 package com.sebastianjoya.unabapp.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.sebastianjoya.unabapp.model.entity.User
+import com.sebastianjoya.unabapp.model.repository.UserRepository
 
 class MainActivityViewModel:ViewModel() {
-    val user: User = User(email = "juanjoya@gmail.com",password = "123456")
+    val user: User = User(email = "juan@correo.com")
+    var password:String = "123456789"
+    private val userRepository:UserRepository = UserRepository()
 
-    fun login():Boolean{
-
-        println(user.email)
-        println(user.password)
-
-        return user.email=="juanjoya@gmail.com" && user.password == "123456"
+    fun login():LiveData<User?>{
+        return userRepository.login(user.email,password)
     }
 }

@@ -42,41 +42,26 @@ class MainActivity : AppCompatActivity() {
 
         binding.buLoginLogin.setOnClickListener{
 
+            viewModel.login().observe(this){
+                it?.let {
+                    val preferences: SharedPreferences = getSharedPreferences("unabApp.pref",MODE_PRIVATE)
+                    val editor:SharedPreferences.Editor = preferences.edit()
+                    editor.putBoolean("login",true)
+                    editor.apply()
 
-            if (viewModel.login()){
-
-                val preferences: SharedPreferences = getSharedPreferences("unabApp.pref",MODE_PRIVATE)
-                val editor:SharedPreferences.Editor = preferences.edit()
-                editor.putBoolean("login",true)
-                editor.apply()
-
-                Toast.makeText(this,"Login correcto",Toast.LENGTH_SHORT).show()
-                goToProductsView()
-            }else{
-                Toast.makeText(this,"Login inválido",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Login correcto",Toast.LENGTH_SHORT).show()
+                    goToProductsView()
+                }?:run{
+                    Toast.makeText(this,"Login inválido",Toast.LENGTH_SHORT).show()
+                }
             }
-
-//            println("Hola mundo")
-//            Toast.makeText(this,"Login oprimido",Toast.LENGTH_SHORT).show()
-//            println("${binding.dataUser?.name}")
-
-
-//            if (binding.dataUser?.email == getString(R.string.validEmail) &&
-//                binding.dataUser?.password == getString(R.string.validPassword)
-//                    ){
-//                Toast.makeText(this,"Login correcto",Toast.LENGTH_SHORT).show()
-//            }else{
-//                Toast.makeText(this,"Login inválido",Toast.LENGTH_SHORT).show()
-//            }
         }
 
         binding.buLoginSignup.setOnClickListener{
 
-            /**
-             * Evento para llamar a otra pantalla
-             */
-
-
+            val intentSignUp = Intent(applicationContext, SignUpActivity::class.java)
+            startActivity(intentSignUp)
+            //finish()
         }
     }
 
