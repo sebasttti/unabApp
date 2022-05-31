@@ -32,14 +32,14 @@ class ProductDetailActivity : AppCompatActivity() {
         //viewModel.fetchProduct(productKey)
         productId?.let { viewModel.fetchProductFirestore(it) }
 
-        binding.product = Product(name = "", value = "", description = "")
+        binding.product = Product()
 
         viewModel.product.observe(this){
             it?.let {
                 binding.product=it
                 //productKey = it.key!!
             }?:run{
-                binding.product= Product(name = "", value = "")
+                binding.product= Product()
             }
 
         }

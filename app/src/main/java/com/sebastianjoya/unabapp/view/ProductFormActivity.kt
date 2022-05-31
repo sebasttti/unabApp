@@ -2,22 +2,37 @@ package com.sebastianjoya.unabapp.view
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.sebastianjoya.unabapp.R
 import com.sebastianjoya.unabapp.databinding.ActivityProductFormBinding
 import com.sebastianjoya.unabapp.model.entity.Product
 import com.sebastianjoya.unabapp.viewmodel.ProductFormActivityViewModel
 import com.sebastianjoya.unabapp.viewmodel.ProductListActivityViewModel
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class ProductFormActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityProductFormBinding
     lateinit var viewModel: ProductFormActivityViewModel
+    lateinit var resultGallery: ActivityResultLauncher<Intent>
+    lateinit var resultCamera: ActivityResultLauncher<Intent>
+    var photoUri:Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,11 +66,14 @@ class ProductFormActivity : AppCompatActivity() {
 
 
         }?:run{
-            myProduct = Product(name = "",description = "",value = "",urlImage = "")
+            myProduct = Product()
 
             binding.buProductFormConfirm.setOnClickListener{
-                viewModel.add(binding.product as Product).observe(this){
+
+                binding.buProductFormConfirm.isEnabled = false
+                viewModel.add(binding.product as Product,photoUri).observe(this){
                     id->
+                    binding.buProductFormConfirm.isEnabled = true
                     if (id != ""){
                         finish()
                     }else{
@@ -71,21 +89,65 @@ class ProductFormActivity : AppCompatActivity() {
 
         binding.product = myProduct
 
+        resultGallery = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if(it.resultCode == RESULT_OK) run {
+                photoUri = it.data!!.data!!
+                Glide.with(applicationContext).load(photoUri).into(binding.ivProductFormImg)
+            }
+        }
+
+        resultCamera = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if(it.resultCode == RESULT_OK) run {
+                Glide.with(applicationContext).load(photoUri).into(binding.ivProductFormImg)
+            }
+
+        }
+
 
 
         binding.buProductFormReturn.setOnClickListener{
-            finish()
+            //finish()
         }
+
+        binding.ibProductFormGallery.setOnClickListener{
+           val galleryItem = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            resultGallery.launch(galleryItem)
+            //galleryItem.resolveActivity(packageManager)?.let{
+           //     startActivity(galleryItem)
+           //}
+        }
+
+        binding.ibProductFormCamera.setOnClickListener{
+            val cameraItem = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            var photoFile:File? = null
+            try{
+                photoFile = createImage()
+            }catch(e:IOException){
+
+            }
+
+            photoFile?.let{
+                photoUri = FileProvider.getUriForFile(applicationContext,"com.sebastianjoya.unabapp.fileprovider",photoFile)
+                cameraItem.putExtra(MediaStore.EXTRA_OUTPUT,photoUri)
+                resultCamera.launch(cameraItem)
+            }
+
+            //resultGallery.launch(galleryItem)
+
+        }
+
+
 
     }
 
-    private fun sendDataBackToPreviousActivity(thisProduct: Product) {
-        val intent = Intent().apply {
-            putExtra("product", thisProduct)
-            // Put your data here if you want.
-        }
-        setResult(Activity.RESULT_OK, intent)
+    private fun createImage(): File? {
+        var timeStamp = SimpleDateFormat("yyyy-MM-dd-HHmmss", Locale.US).format(Date())
+        val storeAppDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+
+        return File.createTempFile(timeStamp, ".jpg",storeAppDir)
     }
+
+
 
 
 

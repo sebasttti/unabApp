@@ -1,6 +1,7 @@
 package com.sebastianjoya.unabapp.viewmodel
 
 import android.app.Application
+import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.sebastianjoya.unabapp.model.entity.Product
@@ -11,9 +12,9 @@ class ProductFormActivityViewModel(application: Application): AndroidViewModel(a
     private val productRepository: ProductRepository = ProductRepository(application)
     var products: LiveData<List<Product>> = productRepository.products
 
-    fun add(myProduct: Product):LiveData<String>{
+    fun add(myProduct: Product,photoUri:Uri?):LiveData<String>{
         //productRepository.addLocal(myProduct)
-        return productRepository.addFirestore(myProduct)
+        return productRepository.addFirestore(myProduct,photoUri)
     }
 
     fun update(myProduct: Product):LiveData<Boolean>{

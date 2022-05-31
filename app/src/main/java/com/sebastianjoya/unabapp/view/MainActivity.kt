@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
             goToProductsView()
         }
 
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
 

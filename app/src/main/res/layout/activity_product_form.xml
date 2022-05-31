@@ -8,6 +8,9 @@
             name="product"
             type="com.sebastianjoya.unabapp.model.entity.Product" />
 
+        <import
+            type="com.sebastianjoya.unabapp.utils.BindingUtilsKt" />
+
     </data>
 
     <ScrollView
@@ -31,14 +34,35 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:image="@{product.urlImage}"/>
 
+            <ImageButton
+                android:id="@+id/ib_productForm_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_camera"
+                app:layout_constraintTop_toBottomOf="@id/iv_productForm_img"
+                app:layout_constraintLeft_toLeftOf="@id/iv_productForm_img"
+                android:layout_marginTop="10dp"
+                />
+
+            <ImageButton
+                android:id="@+id/ib_productForm_gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_gallery"
+                app:layout_constraintTop_toBottomOf="@id/iv_productForm_img"
+                app:layout_constraintRight_toRightOf="@id/iv_productForm_img"
+                android:layout_marginTop="10dp"
+                />
+
             <EditText
                 android:layout_marginTop="30dp"
                 android:id="@+id/ed_productForm_name"
-                app:layout_constraintTop_toBottomOf="@id/iv_productForm_img"
+                app:layout_constraintTop_toBottomOf="@id/ib_productForm_camera"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nombre"
                 android:text="@={product.name}"
+
                 />
 
             <EditText
@@ -48,8 +72,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Valor"
+                android:inputType="number"
                 android:text="@={product.value}"
                 />
+                <!--android:text="@={BindingUtilsKt.intToString(product.value)}" -->
 
             <EditText
                 android:layout_marginTop="30dp"
@@ -61,23 +87,13 @@
                 android:text="@={product.description}"
                 />
 
-            <EditText
-                android:layout_marginTop="30dp"
-                android:id="@+id/ed_productForm_urlImage"
-                app:layout_constraintTop_toBottomOf="@id/ed_productForm_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Imagen"
-                android:text="@={product.urlImage}"
-                />
-
             <Button
                 android:layout_marginTop="30dp"
                 android:id="@+id/bu_productForm_confirm"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ed_productForm_urlImage"
+                app:layout_constraintTop_toBottomOf="@id/ed_productForm_description"
                 android:text="AGREGAR" />
 
             <Button
@@ -86,7 +102,7 @@
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ed_productForm_urlImage"
+                app:layout_constraintTop_toBottomOf="@id/ed_productForm_description"
                 android:text="REGRESAR" />
 
 
