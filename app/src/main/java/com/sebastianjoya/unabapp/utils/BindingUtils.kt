@@ -10,7 +10,7 @@ fun loadImage(imageView:ImageView, url:String){
     Glide.with(imageView.context).load(url).into(imageView)
 }
 
-/*@InverseMethod("stringToInt")
+@InverseMethod("stringToInt")
 fun intToString(value:Int):String{
     return value.toString()
 }
@@ -18,4 +18,4 @@ fun intToString(value:Int):String{
 @InverseMethod("intToString")
 fun stringToInt(value:String):Int{
     return Integer.parseInt(value)
-}*/
+}
